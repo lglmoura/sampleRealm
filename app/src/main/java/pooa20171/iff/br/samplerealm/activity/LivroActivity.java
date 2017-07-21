@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class LivroActivity extends AppCompatActivity implements ClickRecyclerVie
     @Override
     public void onClick(Object object) {
         Livro livro = (Livro) object;
+        Toast.makeText(this,livro.getNome(),Toast.LENGTH_SHORT).show();
         //Intent intent = new Intent(this, LivroDestaque.class);
         //intent.putExtra("livro", livro);
         //startActivity(intent);
