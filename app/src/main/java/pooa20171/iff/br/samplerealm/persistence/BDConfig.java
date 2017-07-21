@@ -16,11 +16,11 @@ public class BDConfig  extends Application {
 
             Realm.init(getApplicationContext());
 
-            RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
-                    .name(Realm.DEFAULT_REALM_NAME)
-                    .schemaVersion(0)
-                    .deleteRealmIfMigrationNeeded()
-                    .build();
+            RealmConfiguration.Builder builder = new RealmConfiguration.Builder();
+            builder.name("teste.realm");
+            builder.schemaVersion(0);
+            builder.deleteRealmIfMigrationNeeded();
+            RealmConfiguration realmConfiguration = builder.build();
             Realm.setDefaultConfiguration(realmConfiguration);
         }
 }

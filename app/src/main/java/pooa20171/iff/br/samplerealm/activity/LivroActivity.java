@@ -9,9 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import pooa20171.iff.br.samplerealm.R;
 import pooa20171.iff.br.samplerealm.adapter.ClickRecyclerViewListener;
 import pooa20171.iff.br.samplerealm.adapter.LivroAdapter;
@@ -19,6 +19,7 @@ import pooa20171.iff.br.samplerealm.model.Livro;
 
 public class LivroActivity extends AppCompatActivity implements ClickRecyclerViewListener {
 
+    private Realm realm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,13 +27,7 @@ public class LivroActivity extends AppCompatActivity implements ClickRecyclerVie
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_Livro);
-
-        recyclerView.setAdapter(new LivroAdapter(getLivros(),this,this));
-        RecyclerView.LayoutManager layout = new LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL, false);
-
-        recyclerView.setLayoutManager(layout);
+        realm = Realm.getDefaultInstance();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -45,15 +40,8 @@ public class LivroActivity extends AppCompatActivity implements ClickRecyclerVie
     }
 
     private List<Livro> getLivros(){
-        List<Livro> livros = new ArrayList<Livro>();
-        int i =0;
-        for(i=0;i<=20;i++){
-            String iv = String.valueOf(i);
-            Livro livro = new Livro(i,"livro".concat(iv),"Autor".concat(iv),"Descricao".concat(iv));
-            livros.add(livro);
 
-        }
-        return livros;
+        return (List)realm.where(Livro.class).findAll();
 
     }
 
@@ -65,5 +53,18 @@ public class LivroActivity extends AppCompatActivity implements ClickRecyclerVie
         //startActivity(intent);
 
     }
+
+    protected void onResume() {
+        super.onResume();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_Livro);
+
+        recyclerView.setAdapter(new LivroAdapter(getLivros(),this,this));
+        RecyclerView.LayoutManager layout = new LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL, false);
+
+        recyclerView.setLayoutManager(layout);
+
+    }
+
 
 }

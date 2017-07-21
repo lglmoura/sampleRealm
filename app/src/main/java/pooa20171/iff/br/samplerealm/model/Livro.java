@@ -17,7 +17,9 @@ public class Livro extends RealmObject implements Serializable {
     private String autor;
     private String descricao;
 
+
     public Livro() {
+
     }
 
     public Livro(int id, String nome, String autor, String descricao) {
@@ -25,6 +27,7 @@ public class Livro extends RealmObject implements Serializable {
         this.nome = nome;
         this.autor = autor;
         this.descricao = descricao;
+
     }
 
     public int getId() {
@@ -58,4 +61,5 @@ public class Livro extends RealmObject implements Serializable {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
 }
