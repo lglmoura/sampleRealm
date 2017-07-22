@@ -1,14 +1,13 @@
 package pooa20171.iff.br.samplerealm.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -34,8 +33,9 @@ public class LivroActivity extends AppCompatActivity implements ClickRecyclerVie
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(LivroActivity.this,LivroDetalheActivity.class);
+                intent.putExtra("id",0);
+                startActivity(intent);
             }
         });
     }
@@ -49,10 +49,9 @@ public class LivroActivity extends AppCompatActivity implements ClickRecyclerVie
     @Override
     public void onClick(Object object) {
         Livro livro = (Livro) object;
-        Toast.makeText(this,livro.getNome(),Toast.LENGTH_SHORT).show();
-        //Intent intent = new Intent(this, LivroDestaque.class);
-        //intent.putExtra("livro", livro);
-        //startActivity(intent);
+        Intent intent = new Intent(LivroActivity.this,LivroDetalheActivity.class);
+        intent.putExtra("id",livro.getId());
+        startActivity(intent);
 
     }
 
@@ -65,6 +64,13 @@ public class LivroActivity extends AppCompatActivity implements ClickRecyclerVie
                 LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(layout);
+
+
+    }
+
+    @Override
+    public void finish(){
+        realm.close();
 
     }
 
